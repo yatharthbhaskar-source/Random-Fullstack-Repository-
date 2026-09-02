@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseFlow — Social Media Post Management Dashboard</title>
+  <!-- SEO & Description -->
+  <meta name="description" content="A modern, professional, and responsive SaaS dashboard for social media post management, drafting, publishing, and analytics.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="vibrant-theme.css">
+</head>
+<body>
+
+  <!-- Vibrant Mesh Background -->
+  <div class="vibrant-bg-container">
+    <div class="vibrant-blob blob-1"></div>
+    <div class="vibrant-blob blob-2"></div>
+    <div class="vibrant-blob blob-3"></div>
+  </div>
+
+  <!-- Toast Notifications Container (Top-Right) -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- App Shell Layout -->
+  <div class="app-shell">
+
+    <!-- =========================================================
+         LEFT SIDEBAR NAVIGATION
+         ========================================================= -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <div class="brand-icon">PF</div>
+          <div>
+            <div class="brand-text">PulseFlow</div>
+            <span class="brand-badge">PRO SAAS v3.2</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Core Management</div>
+        <div class="nav-item active" data-view="dashboard">
+          <div class="nav-item-left">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+            <span>Dashboard</span>
+          </div>
+        </div>
+
+        <div class="nav-item" data-view="create-post">
+          <div class="nav-item-left">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            <span>Create Post</span>
+          </div>
+          <span class="nav-badge" style="color:var(--primary); background:var(--primary-light);">MAIN</span>
+        </div>
+
+        <div class="nav-item" data-view="drafts">
+          <div class="nav-item-left">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <span>Drafts</span>
+          </div>
+          <span class="nav-badge">14</span>
+        </div>
+
+        <div class="nav-item" data-view="published">
+          <div class="nav-item-left">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Published Posts</span>
+          </div>
+          <span class="nav-badge">1,392</span>
+        </div>
+
+        <div class="nav-section-title">Insights & Config</div>
+        <div class="nav-item" data-view="analytics">
+          <div class="nav-item-left">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            <span>Analytics</span>
+          </div>
+        </div>
+
+        <div class="nav-item" data-view="settings">
+          <div class="nav-item-left">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Settings</span>
+          </div>
+        </div>
+
+        <div class="nav-section-title">Design System</div>
+        <div class="nav-item" data-view="showcase">
+          <div class="nav-item-left">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            <span>UI Showcase & Elements</span>
+          </div>
+          <span class="nav-badge" style="background:var(--warning-bg); color:var(--warning); border-color:var(--warning-border);">UI KIT</span>
+        </div>
+
+        <div class="nav-item" data-goto-view="login" style="margin-top: auto; color: var(--danger); border-top: 1px solid var(--border-inner); border-radius: 0; padding-top: 16px;">
+          <div class="nav-item-left">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Sign Out</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="storage-widget">
+          <div class="storage-info">
+            <span>Media Storage</span>
+            <span>34 GB / 50 GB</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =========================================================
+         MAIN CONTENT WRAPPER
+         ========================================================= -->
+    <main class="main-wrapper">
+
+      <!-- TOP FIXED NAVIGATION BAR -->
+      <header class="navbar">
+        <div class="navbar-left">
+          <button id="hamburgerBtn" class="hamburger-btn" aria-label="Toggle Navigation Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+
+          <div class="nav-search">
+            <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input id="navSearchInput" type="text" class="nav-search-input" placeholder="Search posts, drafts, analytics or commands..." readonly>
+            <span class="nav-search-shortcut">⌘K</span>
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <!-- Theme Toggle Button -->
+          <button id="navbarThemeToggle" class="icon-btn" title="Switch to Light Mode" aria-label="Toggle Theme">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+
+          <!-- Notification Icon Button -->
+          <button class="icon-btn" title="Notifications (3 Unread)" aria-label="Notifications" data-trigger-toast="info">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span class="badge-dot"></span>
+          </button>
+
+          <!-- User Profile Avatar -->
+          <div class="user-profile-pill" title="Alexander Vance — Senior Content Lead">
+            <img class="avatar-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" alt="User Avatar">
+            <div class="user-meta">
+              <span class="user-name">Alexander Vance</span>
+              <span class="user-role">Senior Content Lead</span>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-tertiary);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW CONTAINER -->
+      <div class="content-area">
+
+        <!-- =========================================================
+             VIEW 0: LOGIN / SIGNUP PAGE
+             ========================================================= -->
+        <section id="view-login" class="page-view login-view">
+          <div class="login-wrapper">
+            <div class="glass-card login-card">
+              <div class="login-header">
+                <div class="brand-logo" style="justify-content: center; margin-bottom: 24px;">
+                  <div class="brand-icon" style="width: 48px; height: 48px; font-size: 22px;">PF</div>
+                </div>
+                <h2 id="loginTitle" style="text-align: center; margin-bottom: 8px;">Welcome back</h2>
+                <p id="loginSubtitle" style="text-align: center; color: var(--text-secondary); font-size: 14px; margin-bottom: 32px;">Log in to access your PulseFlow dashboard.</p>
+              </div>
+
+              <div class="social-logins">
+                <button class="btn btn-outline" style="width: 100%; justify-content: center; margin-bottom: 12px; height: 44px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.16v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.16C1.43 8.55 1 10.22 1 12s.43 3.45 1.16 4.93l3.68-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.16 7.07l3.68 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                  <span>Continue with Google</span>
+                </button>
+                <button class="btn btn-outline" style="width: 100%; justify-content: center; margin-bottom: 24px; height: 44px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2" style="margin-right: 8px;"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  <span>Continue with Facebook</span>
+                </button>
+              </div>
+
+              <div class="login-divider">
+                <span>or</span>
+              </div>
+
+              <form class="login-form">
+                <div class="form-group" style="margin-bottom: 16px;">
+                  <label style="display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--text-secondary);">Email</label>
+                  <input type="email" class="form-input" style="width: 100%;" placeholder="name@company.com" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 24px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <label style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">Password</label>
+                    <a href="#" style="font-size: 12px; color: var(--primary);">Forgot?</a>
+                  </div>
+                  <input type="password" class="form-input" style="width: 100%;" placeholder="••••••••" required>
+                </div>
+                
+                <button type="button" id="loginSubmitBtn" class="btn btn-primary" style="width: 100%; justify-content: center; height: 44px; font-size: 14px;" data-goto-view="dashboard">
+                  Log In
+                </button>
+              </form>
+
+              <div style="text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-secondary);">
+                <span id="loginToggleText">Don't have an account? <a href="#" id="loginToggleBtn" style="color: var(--primary); font-weight: 600;">Sign up</a></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+             VIEW 1: LANDING DASHBOARD
+             ========================================================= -->
+        <section id="view-dashboard" class="page-view active">
+          <div class="page-header stagger-1">
+            <div class="page-header-left">
+              <h1>Social Media Overview</h1>
+              <p>Welcome back, Alexander. Here is what is happening across your 5 connected platforms.</p>
+            </div>
+            <div>
+              <button class="btn btn-primary" data-goto-view="create-post">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>New Post</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Summary Cards Grid -->
+          <div class="summary-grid stagger-2">
+            <div class="glass-card summary-card">
+              <div class="summary-icon-box summary-icon-blue">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              </div>
+              <div class="summary-label">Total Posts</div>
+              <div class="summary-value">1,428</div>
+              <div><span class="summary-trend trend-up">+12% vs last month</span></div>
+            </div>
+
+            <div class="glass-card summary-card">
+              <div class="summary-icon-box summary-icon-purple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+              </div>
+              <div class="summary-label">Drafts</div>
+              <div class="summary-value">14</div>
+              <div><span class="summary-trend trend-neutral">3 pending approval</span></div>
+            </div>
+
+            <div class="glass-card summary-card">
+              <div class="summary-icon-box summary-icon-green">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="summary-label">Published Posts</div>
+              <div class="summary-value">1,392</div>
+              <div><span class="summary-trend trend-up">98.4% success rate</span></div>
+            </div>
+
+            <div class="glass-card summary-card">
+              <div class="summary-icon-box summary-icon-amber">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              </div>
+              <div class="summary-label">Platforms Used</div>
+              <div class="summary-value">5</div>
+              <div><span class="summary-trend trend-up">All APIs connected</span></div>
+            </div>
+
+            <div class="glass-card summary-card">
+              <div class="summary-icon-box summary-icon-cyan">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              </div>
+              <div class="summary-label">Average Characters</div>
+              <div class="summary-value">218</div>
+              <div><span class="summary-trend trend-neutral">Optimal engagement</span></div>
+            </div>
+          </div>
+
+          <!-- Dashboard Mid Sections Grid -->
+          <div class="dashboard-sections-grid">
+            <!-- Recent Drafts -->
+            <div class="glass-card">
+              <div class="card-title">
+                <span>Recent Drafts</span>
+                <button class="btn btn-ghost" style="padding:4px 10px; font-size:12px;" data-goto-view="drafts">View All →</button>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="padding:14px; border-radius:var(--radius-md); background:var(--bg-surface-inner); border:1px solid var(--border-inner); display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <h4 style="font-size:14px; margin-bottom:4px;">Q3 Major Product Launch & AI Workspace Teaser</h4>
+                    <p style="font-size:12px; color:var(--text-secondary);">We are officially lifting the curtain on PulseFlow AI Assistant. Designed for content creators...</p>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                      <span class="status-badge badge-draft">Draft</span>
+                      <span style="font-size:11px; color:var(--text-tertiary); display:flex; align-items:center; gap:4px;">⏱ Updated 2 hrs ago · 4 platforms</span>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px;" data-goto-view="create-post">Edit</button>
+                </div>
+
+                <div style="padding:14px; border-radius:var(--radius-md); background:var(--bg-surface-inner); border:1px solid var(--border-inner); display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <h4 style="font-size:14px; margin-bottom:4px;">Weekly Customer Spotlight — Enterprise Scale</h4>
+                    <p style="font-size:12px; color:var(--text-secondary);">How @AcmeCorp scaled their social outreach by 340% using automated approval workflows...</p>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                      <span class="status-badge badge-draft">Draft</span>
+                      <span style="font-size:11px; color:var(--text-tertiary); display:flex; align-items:center; gap:4px;">⏱ Updated yesterday · LinkedIn, X</span>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px;" data-goto-view="create-post">Edit</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Platform Usage Breakdown -->
+            <div class="glass-card">
+              <div class="card-title">
+                <span>Platform Usage</span>
+                <span style="font-size:12px; color:var(--text-tertiary);">Last 30 Days</span>
+              </div>
+              <div class="platform-usage-list">
+                <div class="platform-bar-row">
+                  <div class="platform-bar-header">
+                    <span>Twitter / X</span>
+                    <span class="font-mono">38%</span>
+                  </div>
+                  <div class="progress-track"><div class="progress-fill" style="width:38%; background:#1da1f2;"></div></div>
+                </div>
+
+                <div class="platform-bar-row">
+                  <div class="platform-bar-header">
+                    <span>Instagram</span>
+                    <span class="font-mono">26%</span>
+                  </div>
+                  <div class="progress-track"><div class="progress-fill" style="width:26%; background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);"></div></div>
+                </div>
+
+                <div class="platform-bar-row">
+                  <div class="platform-bar-header">
+                    <span>LinkedIn</span>
+                    <span class="font-mono">18%</span>
+                  </div>
+                  <div class="progress-track"><div class="progress-fill" style="width:18%; background:#0a66c2;"></div></div>
+                </div>
+
+                <div class="platform-bar-row">
+                  <div class="platform-bar-header">
+                    <span>Facebook</span>
+                    <span class="font-mono">11%</span>
+                  </div>
+                  <div class="progress-track"><div class="progress-fill" style="width:11%; background:#1877f2;"></div></div>
+                </div>
+
+                <div class="platform-bar-row">
+                  <div class="platform-bar-header">
+                    <span>Threads</span>
+                    <span class="font-mono">7%</span>
+                  </div>
+                  <div class="progress-track"><div class="progress-fill" style="width:7%; background:#f8fafc;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Grid: Recent Published & Activity Timeline -->
+          <div class="dashboard-sections-grid">
+            <!-- Recent Published Posts -->
+            <div class="glass-card">
+              <div class="card-title">
+                <span>Recent Published Posts</span>
+                <button class="btn btn-ghost" style="padding:4px 10px; font-size:12px;" data-goto-view="published">View All →</button>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="padding:14px; border-radius:var(--radius-md); background:var(--bg-surface-inner); border:1px solid var(--border-inner); display:flex; justify-content:space-between; align-items:center;">
+                  <div style="display:flex; gap:14px; align-items:center;">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120&auto=format&fit=crop&q=80" style="width:52px; height:52px; border-radius:8px; object-fit:cover;" alt="Post thumb">
+                    <div>
+                      <div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">
+                        <span class="status-badge badge-published">Published</span>
+                        <span style="font-size:11px; color:var(--text-tertiary);">Jul 14 at 9:00 AM</span>
+                      </div>
+                      <h4 style="font-size:14px;">Minimalism in Modern UI Design — 5 Principles</h4>
+                      <p style="font-size:12px; color:var(--text-secondary);">Distributed to Twitter/X, LinkedIn, and Instagram Carousel · 4,120 Impressions</p>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px;" data-goto-view="published">View</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Activity Timeline -->
+            <div class="glass-card">
+              <div class="card-title">
+                <span>Activity Timeline</span>
+                <span style="font-size:12px; color:var(--text-tertiary);">Live Audit Log</span>
+              </div>
+              <div class="timeline-list">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-title">Post scheduled for Q3 Announcement</div>
+                  <div class="timeline-time">Today at 10:15 AM · by Alexander Vance</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#8b5cf6; box-shadow:0 0 8px #8b5cf6;"></div>
+                  <div class="timeline-title">Instagram media asset validated</div>
+                  <div class="timeline-time">Yesterday at 4:30 PM · System Automated Check</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></div>
+                  <div class="timeline-title">Published: "Minimalism in Modern UI"</div>
+                  <div class="timeline-time">Jul 14 at 9:00 AM · Distributed across 3 platforms</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =========================================================
+             VIEW 2: CREATE POST (COMPOSER)
+             ========================================================= -->
+        <section id="view-create-post" class="page-view">
+          <div class="page-header stagger-1">
+            <div class="page-header-left">
+              <h1>Create Post Studio</h1>
+              <p>Craft, format, attach high-resolution media, and validate across multiple social networks in one unified composer.</p>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="btn btn-secondary" id="composerClearBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                <span>Clear</span>
+              </button>
+              <button class="btn btn-outline" id="composerSaveDraftBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                <span>Save Draft</span>
+              </button>
+              <button class="btn btn-primary" id="composerPublishBtn">
+                <span>Publish Post</span>
+                <span class="btn-icon-inner">↗</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Composer Split Grid -->
+          <div class="composer-grid stagger-2">
+            <!-- Left Column: Post Content & Media Upload -->
+            <div style="display:flex; flex-direction:column; gap:24px;">
+              
+              <!-- Post Content Area -->
+              <div class="glass-card">
+                <div class="composer-section-label">
+                  <span>Post Content & Copy</span>
+                  <span style="font-size:12px; font-weight:500; color:var(--text-tertiary);">Supports Markdown & Mention syntax</span>
+                </div>
+
+                <div class="textarea-wrapper">
+                  <textarea id="postTextarea" class="composer-textarea" placeholder="What's happening? Type @ to mention accounts or # for hashtags... Perfect your hook, format lists with bullet points, or paste your editorial copy here.">Excited to introduce our new Q3 Workflow Automation suite! 🚀
+
+We spent the last 6 months interviewing over 200+ social media managers to understand the real pain points of multi-platform distribution. Here is what we solved:
+
+✨ 1-Click Platform Adaptation
+📊 Real-time Aspect Ratio Validation
+⚡ Instant AI Copy Polishing
+
+Available today for all Enterprise workspaces. #SaaS #ProductLaunch #Workflow</textarea>
+                  
+                  <div class="composer-footer-toolbar">
+                    <div class="toolbar-actions">
+                      <button class="toolbar-btn" title="Add Emoji">😊 Emoji</button>
+                      <button class="toolbar-btn" title="Insert Hashtags"># Hashtags</button>
+                      <button class="toolbar-btn" title="Mention User">@ Mention</button>
+                      <button class="toolbar-btn" title="AI Polish Suggestion">✨ AI Polish</button>
+                    </div>
+                    <div id="composerCharCounter" class="char-counter">384 / 2,200 characters</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Media Upload Area -->
+              <div class="glass-card">
+                <div class="composer-section-label">
+                  <span>Media & Attachments</span>
+                  <span style="font-size:12px; font-weight:500; color:var(--text-tertiary);">Up to 10 images or 4 high-res videos</span>
+                </div>
+
+                <div id="composerDropzone" class="upload-dropzone">
+                  <div class="dropzone-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                  </div>
+                  <div class="dropzone-title">Drag & Drop or Browse Files</div>
+                  <div class="dropzone-sub">Supports high-resolution PNG, JPG, WEBP, MP4, and MOV up to 50MB per file.</div>
+                </div>
+
+                <!-- Media Preview Cards -->
+                <div class="composer-section-label" style="font-size:13px; margin-bottom:10px;">Attached Media Previews (2 Files)</div>
+                <div class="media-previews-list">
+                  <div class="media-preview-card">
+                    <img class="media-thumb" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=160&auto=format&fit=crop&q=80" alt="Launch Graphic preview">
+                    <div class="media-info">
+                      <div class="media-name">q3_launch_graphic_v2.png</div>
+                      <div class="media-size">4.2 MB · 1920×1080</div>
+                    </div>
+                    <button class="media-remove-btn" title="Remove attachment">×</button>
+                  </div>
+
+                  <div class="media-preview-card">
+                    <img class="media-thumb" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=160&auto=format&fit=crop&q=80" alt="Feature Teaser video thumb">
+                    <div class="media-info">
+                      <div class="media-name">feature_teaser_reel.mp4</div>
+                      <div class="media-size">18.6 MB · 1080×1920 (9:16)</div>
+                    </div>
+                    <button class="media-remove-btn" title="Remove attachment">×</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right Column: Platform Selection & Real-time Validation Section -->
+            <div style="display:flex; flex-direction:column; gap:24px;">
+              
+              <!-- Platform Selection Cards/Pills -->
+              <div class="glass-card">
+                <div class="composer-section-label">
+                  <span>Target Social Platforms</span>
+                  <span style="font-size:12px; font-weight:500; color:var(--text-tertiary);">Select 1 or more</span>
+                </div>
+
+                <div class="platforms-grid">
+                  <!-- Twitter/X -->
+                  <div class="platform-pill selected">
+                    <div class="platform-pill-icon" style="background:rgba(29, 161, 242, 0.15); color:#1da1f2;">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                    </div>
+                    <div class="platform-pill-name">Twitter / X</div>
+                  </div>
+
+                  <!-- LinkedIn -->
+                  <div class="platform-pill selected">
+                    <div class="platform-pill-icon" style="background:rgba(10, 102, 194, 0.15); color:#0a66c2;">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path></svg>
+                    </div>
+                    <div class="platform-pill-name">LinkedIn</div>
+                  </div>
+
+                  <!-- Instagram -->
+                  <div class="platform-pill selected">
+                    <div class="platform-pill-icon" style="background:rgba(225, 48, 108, 0.15); color:#e1306c;">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </div>
+                    <div class="platform-pill-name">Instagram</div>
+                  </div>
+
+                  <!-- Facebook -->
+                  <div class="platform-pill">
+                    <div class="platform-pill-icon" style="background:rgba(24, 119, 242, 0.15); color:#1877f2;">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+                    </div>
+                    <div class="platform-pill-name">Facebook</div>
+                  </div>
+
+                  <!-- Threads -->
+                  <div class="platform-pill">
+                    <div class="platform-pill-icon" style="background:rgba(255, 255, 255, 0.1); color:var(--text-primary);">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12v1a7 7 0 0 1-14 0v-1a7 7 0 0 1 14 0Z"></path><path d="M15 11a3 3 0 1 1-6 0"></path><path d="M12 11v6"></path><path d="M15 15.5c-1 1-2.5 1.5-4 1.5"></path></svg>
+                    </div>
+                    <div class="platform-pill-name">Threads</div>
+                  </div>
+                </div>
+
+                <!-- Validation Section Cards -->
+                <div class="composer-section-label" style="font-size:13px; margin-bottom:12px;">Pre-Flight Validation Engine</div>
+                
+                <div class="validation-cards-stack">
+                  <!-- Success Validation Message -->
+                  <div class="validation-card success">
+                    <div class="validation-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <div class="validation-content">
+                      <div class="validation-title">Ready for LinkedIn & Twitter/X</div>
+                      <div class="validation-desc">Character count (384 chars) and 16:9 media attachments meet all API formatting standards.</div>
+                    </div>
+                  </div>
+
+                  <!-- Warning Validation Message -->
+                  <div class="validation-card warning">
+                    <div class="validation-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <div class="validation-content">
+                      <div class="validation-title">Instagram Crop Warning</div>
+                      <div class="validation-desc">Attached video (9:16) will display nicely in Reels, but 16:9 graphic may require cropping for Feed.</div>
+                    </div>
+                  </div>
+
+                  <!-- Error Validation Message -->
+                  <div class="validation-card error">
+                    <div class="validation-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                    </div>
+                    <div class="validation-content">
+                      <div class="validation-title">Threads Video Limit Notice</div>
+                      <div class="validation-desc">Threads API restricts video attachments to 5 minutes or 30MB. Please ensure compressed output.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scheduling Option Box -->
+                <div style="padding:16px; border-radius:var(--radius-lg); background:var(--bg-input); border:1px solid var(--border-outer);">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:13px; font-weight:700;">Publishing Time</span>
+                    <span class="status-badge badge-published" style="background:var(--primary-light); color:var(--primary); border-color:rgba(37,99,235,0.3);">Scheduled</span>
+                  </div>
+                  <div style="display:flex; gap:10px;">
+                    <input type="text" class="form-input" value="Tomorrow, Jul 16, 2026 at 10:00 AM" readonly style="font-size:13px;">
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =========================================================
+             VIEW 3: DRAFTS PAGE
+             ========================================================= -->
+        <section id="view-drafts" class="page-view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1>Post Drafts</h1>
+              <p>Review, duplicate, or schedule your unpublished work stored in your local workspace.</p>
+            </div>
+            <div>
+              <button class="btn btn-primary" data-goto-view="create-post">+ New Draft</button>
+            </div>
+          </div>
+
+          <!-- Search & Sorting Toolbar -->
+          <div class="filter-toolbar">
+            <div class="filter-search nav-search">
+              <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" class="nav-search-input" placeholder="Search across 14 drafts by keyword or platform...">
+            </div>
+
+            <div class="sort-dropdown">
+              <span style="font-size:13px; color:var(--text-secondary); font-weight:500;">Sort by:</span>
+              <select class="select-input">
+                <option>Last Modified (Newest First)</option>
+                <option>Created Date</option>
+                <option>Character Count</option>
+                <option>Platform Count</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Drafts Grid Layout -->
+          <div class="posts-grid">
+            
+            <!-- Draft Card 1 -->
+            <div class="glass-card post-card">
+              <div class="post-card-header">
+                <span class="status-badge badge-draft">Draft</span>
+                <span style="font-size:12px; color:var(--text-tertiary);">Today, 2:15 PM</span>
+              </div>
+              <h3 class="post-card-title">Q3 Major Product Launch Announcement</h3>
+              <p class="post-card-preview">We are officially lifting the curtain on PulseFlow AI Assistant. Designed for content creators who demand 1-click platform adaptation and real-time validation across all channels...</p>
+              
+              <div class="post-media-box">
+                <img class="post-media-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80" alt="Draft media">
+              </div>
+
+              <div class="post-meta-row">
+                <div class="platform-tags-list" title="Target platforms: Twitter/X, LinkedIn, Instagram, Facebook">
+                  <span class="platform-tag" style="color:#1da1f2;">𝕏</span>
+                  <span class="platform-tag" style="color:#0a66c2;">in</span>
+                  <span class="platform-tag" style="color:#e1306c;">ig</span>
+                  <span class="platform-tag" style="color:#1877f2;">fb</span>
+                </div>
+                <span class="font-mono" style="font-weight:600;">384 chars · 2 media</span>
+              </div>
+
+              <div class="post-card-actions">
+                <button class="btn btn-secondary" data-goto-view="create-post">Edit</button>
+                <button class="btn btn-secondary" title="Duplicate Draft">Duplicate</button>
+                <button class="btn btn-danger" style="flex:0; padding:8px 12px;" data-trigger-modal="modalDeleteConfirm" title="Delete Draft">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+                <button class="btn btn-primary" data-trigger-modal="modalPublishConfirm">Publish</button>
+              </div>
+            </div>
+
+            <!-- Draft Card 2 -->
+            <div class="glass-card post-card">
+              <div class="post-card-header">
+                <span class="status-badge badge-draft">Draft</span>
+                <span style="font-size:12px; color:var(--text-tertiary);">Yesterday, 4:30 PM</span>
+              </div>
+              <h3 class="post-card-title">Enterprise Case Study: Scaling Outreach by 340%</h3>
+              <p class="post-card-preview">Read how the marketing and dev teams at @AcmeCorp used PulseFlow automated approval pipelines to streamline 5,000 monthly assets with zero bottlenecks...</p>
+              
+              <div class="post-media-box">
+                <img class="post-media-img" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80" alt="Draft media">
+              </div>
+
+              <div class="post-meta-row">
+                <div class="platform-tags-list" title="Target platforms: LinkedIn, Twitter/X">
+                  <span class="platform-tag" style="color:#0a66c2;">in</span>
+                  <span class="platform-tag" style="color:#1da1f2;">𝕏</span>
+                </div>
+                <span class="font-mono" style="font-weight:600;">512 chars · 1 video</span>
+              </div>
+
+              <div class="post-card-actions">
+                <button class="btn btn-secondary" data-goto-view="create-post">Edit</button>
+                <button class="btn btn-secondary" title="Duplicate Draft">Duplicate</button>
+                <button class="btn btn-danger" style="flex:0; padding:8px 12px;" data-trigger-modal="modalDeleteConfirm" title="Delete Draft">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+                <button class="btn btn-primary" data-trigger-modal="modalPublishConfirm">Publish</button>
+              </div>
+            </div>
+
+            <!-- Draft Card 3 -->
+            <div class="glass-card post-card">
+              <div class="post-card-header">
+                <span class="status-badge badge-draft">Draft</span>
+                <span style="font-size:12px; color:var(--text-tertiary);">Jul 12, 2026</span>
+              </div>
+              <h3 class="post-card-title">5 Design Principles for Glassmorphism SaaS UI</h3>
+              <p class="post-card-preview">Why subtle transparency, nested double-bezel borders (Doppelrand), and OLED dark mode contrasts create an unmistakable agency-tier digital experience...</p>
+              
+              <div class="post-media-box">
+                <img class="post-media-img" src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=600&auto=format&fit=crop&q=80" alt="Draft media">
+              </div>
+
+              <div class="post-meta-row">
+                <div class="platform-tags-list" title="Target platforms: Threads, Instagram, Twitter/X">
+                  <span class="platform-tag" style="color:var(--text-primary);">th</span>
+                  <span class="platform-tag" style="color:#e1306c;">ig</span>
+                  <span class="platform-tag" style="color:#1da1f2;">𝕏</span>
+                </div>
+                <span class="font-mono" style="font-weight:600;">890 chars · 4 images</span>
+              </div>
+
+              <div class="post-card-actions">
+                <button class="btn btn-secondary" data-goto-view="create-post">Edit</button>
+                <button class="btn btn-secondary" title="Duplicate Draft">Duplicate</button>
+                <button class="btn btn-danger" style="flex:0; padding:8px 12px;" data-trigger-modal="modalDeleteConfirm" title="Delete Draft">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+                <button class="btn btn-primary" data-trigger-modal="modalPublishConfirm">Publish</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- =========================================================
+             VIEW 4: PUBLISHED POSTS PAGE
+             ========================================================= -->
+        <section id="view-published" class="page-view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1>Published Posts</h1>
+              <p>Historical archive of your live broadcasts with verification timestamps and platform distribution records.</p>
+            </div>
+            <div>
+              <button class="btn btn-secondary" data-goto-view="analytics">View Performance Report →</button>
+            </div>
+          </div>
+
+          <!-- Search & Filter Toolbar -->
+          <div class="filter-toolbar">
+            <div class="filter-search nav-search">
+              <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" class="nav-search-input" placeholder="Search across 1,392 published posts...">
+            </div>
+
+            <div class="sort-dropdown">
+              <span style="font-size:13px; color:var(--text-secondary); font-weight:500;">Filter:</span>
+              <select class="select-input">
+                <option>All Platforms (5)</option>
+                <option>Twitter / X Only</option>
+                <option>LinkedIn Only</option>
+                <option>Instagram Only</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Published Posts Grid -->
+          <div class="posts-grid">
+            
+            <!-- Published Card 1 -->
+            <div class="glass-card post-card">
+              <div class="post-card-header">
+                <span class="status-badge badge-published">Published · Verified</span>
+                <span style="font-size:12px; color:var(--text-tertiary);">Jul 14, 2026 at 9:00 AM</span>
+              </div>
+              <h3 class="post-card-title">Minimalism in Modern UI Design — 5 Core Principles</h3>
+              <p class="post-card-preview">We broke down why visual noise destroys conversion rates and how whitespace and typography discipline transform average web apps into $150k agency builds...</p>
+              
+              <div class="post-media-box">
+                <img class="post-media-img" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&auto=format&fit=crop&q=80" alt="Published thumb">
+              </div>
+
+              <div class="post-meta-row">
+                <div class="platform-tags-list">
+                  <span class="platform-tag" style="color:#1da1f2;">𝕏</span>
+                  <span class="platform-tag" style="color:#0a66c2;">in</span>
+                  <span class="platform-tag" style="color:#e1306c;">ig</span>
+                </div>
+                <span class="font-mono" style="color:var(--success); font-weight:600;">✓ 4.1k Impressions</span>
+              </div>
+
+              <div class="post-card-actions">
+                <button class="btn btn-secondary" title="View Live Post URL">View Live</button>
+                <button class="btn btn-secondary" title="Duplicate to New Draft" data-goto-view="create-post">Duplicate</button>
+                <button class="btn btn-danger" style="flex:0; padding:8px 12px;" data-trigger-modal="modalDeleteConfirm" title="Delete Post Record">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Published Card 2 -->
+            <div class="glass-card post-card">
+              <div class="post-card-header">
+                <span class="status-badge badge-published">Published · Verified</span>
+                <span style="font-size:12px; color:var(--text-tertiary);">Jul 10, 2026 at 2:30 PM</span>
+              </div>
+              <h3 class="post-card-title">Introducing PulseFlow Cloud Sync & Team Workspaces</h3>
+              <p class="post-card-preview">Seamlessly collaborate with designers and copy chiefs in real-time. Shared media asset libraries, automated link checking, and instant staging review links are now live...</p>
+              
+              <div class="post-media-box">
+                <img class="post-media-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&q=80" alt="Published thumb">
+              </div>
+
+              <div class="post-meta-row">
+                <div class="platform-tags-list">
+                  <span class="platform-tag" style="color:#1da1f2;">𝕏</span>
+                  <span class="platform-tag" style="color:#0a66c2;">in</span>
+                  <span class="platform-tag" style="color:#1877f2;">fb</span>
+                  <span class="platform-tag" style="color:var(--text-primary);">th</span>
+                </div>
+                <span class="font-mono" style="color:var(--success); font-weight:600;">✓ 12.8k Impressions</span>
+              </div>
+
+              <div class="post-card-actions">
+                <button class="btn btn-secondary" title="View Live Post URL">View Live</button>
+                <button class="btn btn-secondary" title="Duplicate to New Draft" data-goto-view="create-post">Duplicate</button>
+                <button class="btn btn-danger" style="flex:0; padding:8px 12px;" data-trigger-modal="modalDeleteConfirm" title="Delete Post Record">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Published Card 3 -->
+            <div class="glass-card post-card">
+              <div class="post-card-header">
+                <span class="status-badge badge-published">Published · Verified</span>
+                <span style="font-size:12px; color:var(--text-tertiary);">Jul 06, 2026 at 11:15 AM</span>
+              </div>
+              <h3 class="post-card-title">How We Optimized Our API Response Times by 64%</h3>
+              <p class="post-card-preview">Deep dive into our edge worker routing, Rust microservices, and Postgres connection pooling. Full technical engineering breakdown on our engineering blog...</p>
+              
+              <div class="post-media-box">
+                <img class="post-media-img" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80" alt="Published thumb">
+              </div>
+
+              <div class="post-meta-row">
+                <div class="platform-tags-list">
+                  <span class="platform-tag" style="color:#0a66c2;">in</span>
+                  <span class="platform-tag" style="color:#1da1f2;">𝕏</span>
+                </div>
+                <span class="font-mono" style="color:var(--success); font-weight:600;">✓ 8.4k Impressions</span>
+              </div>
+
+              <div class="post-card-actions">
+                <button class="btn btn-secondary" title="View Live Post URL">View Live</button>
+                <button class="btn btn-secondary" title="Duplicate to New Draft" data-goto-view="create-post">Duplicate</button>
+                <button class="btn btn-danger" style="flex:0; padding:8px 12px;" data-trigger-modal="modalDeleteConfirm" title="Delete Post Record">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- =========================================================
+             VIEW 5: ANALYTICS PAGE (PLACEHOLDER WIDGETS)
+             ========================================================= -->
+        <section id="view-analytics" class="page-view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1>Analytics & Insights Dashboard</h1>
+              <p>Placeholder widgets demonstrating high-end chart containers, KPI cards, and cross-channel distribution metrics.</p>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <select class="select-input">
+                <option>Last 30 Days</option>
+                <option>Last 90 Days</option>
+                <option>Year to Date</option>
+              </select>
+              <button class="btn btn-secondary" data-trigger-toast="info">Export PDF Report</button>
+            </div>
+          </div>
+
+          <!-- Statistic Cards Grid -->
+          <div class="summary-grid" style="margin-bottom:28px;">
+            <div class="glass-card summary-card">
+              <div class="summary-label">Average Engagement Rate</div>
+              <div class="summary-value">4.82%</div>
+              <div><span class="summary-trend trend-up">+0.6% vs previous period</span></div>
+            </div>
+            
+            <div class="glass-card summary-card">
+              <div class="summary-label">Total Audience Reach</div>
+              <div class="summary-value">284.5k</div>
+              <div><span class="summary-trend trend-up">+18.4% organic growth</span></div>
+            </div>
+
+            <div class="glass-card summary-card">
+              <div class="summary-label">Link Clicks & Referrals</div>
+              <div class="summary-value">18,240</div>
+              <div><span class="summary-trend trend-up">+4.2% CTR</span></div>
+            </div>
+
+            <div class="glass-card summary-card">
+              <div class="summary-label">Total Shares & Reposts</div>
+              <div class="summary-value">3,120</div>
+              <div><span class="summary-trend trend-up">High virality index</span></div>
+            </div>
+          </div>
+
+          <!-- Charts Grid -->
+          <div class="analytics-grid">
+            
+            <!-- Bar Chart Placeholder (Weekly Reach Comparison) -->
+            <div class="glass-card col-span-8">
+              <div class="card-title">
+                <span>Bar Chart Placeholder — Weekly Reach Comparison (Impressions)</span>
+                <span class="font-mono" style="font-size:12px; color:var(--text-tertiary);">Weekly Aggregation</span>
+              </div>
+              <div class="chart-container">
+                <div class="bar-chart-bars">
+                  <div class="bar-item" style="height:45%;" title="Week 1: 34,000"></div>
+                  <div class="bar-item" style="height:62%;" title="Week 2: 48,000"></div>
+                  <div class="bar-item" style="height:38%;" title="Week 3: 29,000"></div>
+                  <div class="bar-item" style="height:75%;" title="Week 4: 58,000"></div>
+                  <div class="bar-item" style="height:90%;" title="Week 5: 72,000"></div>
+                  <div class="bar-item" style="height:68%;" title="Week 6: 54,000"></div>
+                  <div class="bar-item" style="height:100%; background:linear-gradient(180deg, #10b981, rgba(16,185,129,0.2));" title="Current Week: 84,500"></div>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; color:var(--text-tertiary); font-size:12px; margin-top:8px; padding:0 12px;">
+                <span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span style="color:var(--success); font-weight:700;">W7 (Peak)</span>
+              </div>
+            </div>
+
+            <!-- Pie Chart Placeholder (Platform Share) -->
+            <div class="glass-card col-span-4">
+              <div class="card-title">
+                <span>Pie Chart Placeholder</span>
+                <span style="font-size:12px; color:var(--text-tertiary);">Platform Share</span>
+              </div>
+              <div class="pie-chart-placeholder">
+                <div class="pie-inner-hole">
+                  <span style="font-size:18px; font-weight:800; font-family:'Plus Jakarta Sans';">1,428</span>
+                  <span style="font-size:11px; color:var(--text-tertiary);">Total Posts</span>
+                </div>
+              </div>
+              <div class="chart-legend">
+                <div class="legend-item"><span class="legend-dot" style="background:var(--primary);"></span>Twitter/X (45%)</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#8b5cf6;"></span>Instagram (25%)</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#10b981;"></span>LinkedIn (18%)</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span>Others (12%)</div>
+              </div>
+            </div>
+
+            <!-- Line Chart Placeholder (Audience Growth 30 Days) -->
+            <div class="glass-card col-span-12">
+              <div class="card-title">
+                <span>Line Chart Placeholder — 30-Day Audience Growth Curve (Spline Interpolation)</span>
+                <span class="status-badge badge-published">+14.2% Steady Velocity</span>
+              </div>
+              <div style="width:100%; height:220px; padding:20px 0; position:relative;">
+                <svg viewBox="0 0 1000 200" style="width:100%; height:100%; overflow:visible;">
+                  <!-- Grid lines -->
+                  <line x1="0" y1="40" x2="1000" y2="40" stroke="var(--border-outer)" stroke-dasharray="4" />
+                  <line x1="0" y1="100" x2="1000" y2="100" stroke="var(--border-outer)" stroke-dasharray="4" />
+                  <line x1="0" y1="160" x2="1000" y2="160" stroke="var(--border-outer)" stroke-dasharray="4" />
+                  
+                  <!-- Gradient fill under spline -->
+                  <defs>
+                    <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.35" />
+                      <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.0" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,160 Q150,140 300,120 T600,80 T850,50 L1000,20 L1000,200 L0,200 Z" fill="url(#lineGrad)" />
+                  <!-- Spline stroke -->
+                  <path d="M0,160 Q150,140 300,120 T600,80 T850,50 L1000,20" fill="none" stroke="var(--primary)" stroke-width="3.5" stroke-linecap="round" />
+                  <!-- Data points -->
+                  <circle cx="300" cy="120" r="5" fill="#ffffff" stroke="var(--primary)" stroke-width="3" />
+                  <circle cx="600" cy="80" r="5" fill="#ffffff" stroke="var(--primary)" stroke-width="3" />
+                  <circle cx="850" cy="50" r="5" fill="#ffffff" stroke="var(--primary)" stroke-width="3" />
+                  <circle cx="1000" cy="20" r="6" fill="var(--success)" stroke="#ffffff" stroke-width="2" />
+                </svg>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- =========================================================
+             VIEW 6: SETTINGS PAGE
+             ========================================================= -->
+        <section id="view-settings" class="page-view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1>Settings & Preferences</h1>
+              <p>Configure theme appearance, notification alerts, local storage persistence, and workspace data cleanup.</p>
+            </div>
+          </div>
+
+          <div style="max-width:880px;">
+            
+            <!-- Appearance Section -->
+            <div class="glass-card settings-section-card">
+              <div class="card-title">Appearance & Theme</div>
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">Customize the visual interface across light and dark palettes.</p>
+              
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <h4>Theme Toggle (Quick Switch)</h4>
+                  <p>Toggle between OLED Dark Charcoal and Silver Light mode instantly.</p>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="themeSwitchToggle">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <div style="margin-top:20px;">
+                <label style="font-size:13px; font-weight:600;">Theme Mode Preference</label>
+                <div class="theme-options-grid">
+                  <div class="theme-option-card active" data-set-theme="dark">
+                    <div style="width:100%; height:40px; background:#080b11; border-radius:6px; border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">
+                      <span style="font-size:11px; color:#ffffff; font-weight:700;">OLED Charcoal</span>
+                    </div>
+                    <span style="font-size:13px; font-weight:600;">Dark Mode (Default)</span>
+                  </div>
+
+                  <div class="theme-option-card" data-set-theme="light">
+                    <div style="width:100%; height:40px; background:#f8fafc; border-radius:6px; border:1px solid rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center;">
+                      <span style="font-size:11px; color:#0f172a; font-weight:700;">Silver Paper</span>
+                    </div>
+                    <span style="font-size:13px; font-weight:600;">Light Mode</span>
+                  </div>
+
+                  <div class="theme-option-card" data-set-theme="dark">
+                    <div style="width:100%; height:40px; background:linear-gradient(90deg, #080b11 50%, #f8fafc 50%); border-radius:6px; border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">
+                      <span style="font-size:11px; color:#3b82f6; font-weight:700;">AUTO</span>
+                    </div>
+                    <span style="font-size:13px; font-weight:600;">System Match</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Application Section -->
+            <div class="glass-card settings-section-card">
+              <div class="card-title">Application Configuration</div>
+              
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <h4>Enable Notifications Toggle</h4>
+                  <p>Receive real-time toast alerts when scheduled posts publish or encounter API errors.</p>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <h4>Local Storage Persistence Toggle</h4>
+                  <p>Automatically save composer text and draft state to browser local storage every 5 seconds.</p>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <h4>Reset Application Preferences</h4>
+                  <p>Restore all UI configurations, sidebars, and default theme settings back to factory default.</p>
+                </div>
+                <button class="btn btn-secondary" style="padding:8px 16px; font-size:13px;" data-trigger-toast="info">Reset Button</button>
+              </div>
+            </div>
+
+            <!-- Data Management Section -->
+            <div class="glass-card settings-section-card">
+              <div class="card-title" style="color:var(--danger);">Data & Workspace Cleanup</div>
+              
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <h4>Clear Drafts Button</h4>
+                  <p>Permanently remove all 14 local drafts from this browser instance.</p>
+                </div>
+                <button class="btn btn-danger" style="padding:8px 16px; font-size:13px;" data-trigger-modal="modalDeleteConfirm">Clear Drafts</button>
+              </div>
+
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <h4>Clear Published Posts Button</h4>
+                  <p>Purge local history cache of 1,392 verified published records.</p>
+                </div>
+                <button class="btn btn-danger" style="padding:8px 16px; font-size:13px;" data-trigger-modal="modalDeleteConfirm">Clear Published Posts</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- =========================================================
+             VIEW 7: UI COMPONENT LIBRARY & DESIGN SYSTEM SHOWCASE
+             ========================================================= -->
+        <section id="view-showcase" class="page-view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <h1>UI Component Library & Design System Showcase</h1>
+              <p>Comprehensive interactive preview of every required design asset, button state, input form, empty state, skeleton screen, modal, and toast notification.</p>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:32px;">
+            
+            <!-- 1. Search Interface Showcase -->
+            <div class="glass-card">
+              <div class="card-title">1. Reusable Search Component Showcase</div>
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">Demonstrating rounded input, search icon, clear button, and filterable results card.</p>
+              
+              <div style="max-width:540px; background:var(--bg-navbar); border:1px solid var(--border-outer); border-radius:var(--radius-xl); padding:16px; box-shadow:var(--glass-highlight);">
+                <div style="display:flex; align-items:center; gap:10px; background:var(--bg-input); border:1px solid var(--border-outer); border-radius:var(--radius-pill); padding:0 16px; height:46px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  <input type="text" value="Product Launch" style="flex:1; font-size:14px;" placeholder="Search across all assets...">
+                  <button style="color:var(--text-tertiary); font-size:16px; cursor:pointer;" title="Clear">&times;</button>
+                </div>
+                <div style="margin-top:12px; display:flex; flex-direction:column; gap:6px;">
+                  <div class="search-result-item" style="background:var(--bg-surface-inner);">
+                    <div>
+                      <div style="font-size:13px; font-weight:700;">Draft: Q3 Major Product Launch Announcement</div>
+                      <div style="font-size:11px; color:var(--text-secondary);">Last updated 2 hours ago · Twitter/X, LinkedIn</div>
+                    </div>
+                    <span class="status-badge badge-draft">Draft</span>
+                  </div>
+                  <div class="search-result-item">
+                    <div>
+                      <div style="font-size:13px; font-weight:700;">Published: AI Workspace Product Launch Reel</div>
+                      <div style="font-size:11px; color:var(--text-secondary);">Published on Jul 10 · 12.8k reach</div>
+                    </div>
+                    <span class="status-badge badge-published">Published</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Buttons Showcase -->
+            <div class="glass-card">
+              <div class="card-title">2. Multiple Button Styles & Interactive States Showcase</div>
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:20px;">Primary, Secondary, Danger, Outline, Ghost, and Disabled with Normal, Hover, Focus, and Active states.</p>
+              
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+                <div style="display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:var(--radius-md); background:var(--bg-surface-inner); border:1px solid var(--border-inner);">
+                  <span style="font-size:12px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase;">Primary Style</span>
+                  <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <button class="btn btn-primary">Primary Normal</button>
+                    <button class="btn btn-primary" style="background:var(--primary-hover); box-shadow:0 0 28px var(--primary-glow);">Hover State</button>
+                    <button class="btn btn-primary" style="outline:3px solid rgba(59,130,246,0.4);">Focus State</button>
+                  </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:var(--radius-md); background:var(--bg-surface-inner); border:1px solid var(--border-inner);">
+                  <span style="font-size:12px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase;">Secondary Style</span>
+                  <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <button class="btn btn-secondary">Secondary Normal</button>
+                    <button class="btn btn-secondary" style="background:var(--border-outer);">Hover State</button>
+                  </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:var(--radius-md); background:var(--bg-surface-inner); border:1px solid var(--border-inner);">
+                  <span style="font-size:12px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase;">Danger Style</span>
+                  <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <button class="btn btn-danger">Danger Normal</button>
+                    <button class="btn btn-danger" style="background:#dc2626; box-shadow:0 4px 20px rgba(239,68,68,0.5);">Hover State</button>
+                  </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:var(--radius-md); background:var(--bg-surface-inner); border:1px solid var(--border-inner);">
+                  <span style="font-size:12px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase;">Outline Style</span>
+                  <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <button class="btn btn-outline">Outline Normal</button>
+                    <button class="btn btn-outline" style="border-color:var(--primary); color:var(--primary); background:var(--primary-light);">Hover State</button>
+                  </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:var(--radius-md); background:var(--bg-surface-inner); border:1px solid var(--border-inner);">
+                  <span style="font-size:12px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase;">Ghost & Disabled Styles</span>
+                  <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <button class="btn btn-ghost">Ghost Button</button>
+                    <button class="btn btn-primary" disabled>Disabled State</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Form Input Components Showcase -->
+            <div class="glass-card">
+              <div class="card-title">3. Form Input Components & States Showcase</div>
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:20px;">Text Input, Textarea, Dropdown, Checkbox, Radio Button, Toggle Switch, File Upload, Search Field across Normal, Focus, Error, and Disabled states.</p>
+              
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:24px;">
+                <!-- Text Input Normal -->
+                <div class="form-group">
+                  <label class="form-label">Text Input (Normal State)</label>
+                  <input type="text" class="form-input" placeholder="e.g. Campaign Title Q3">
+                  <span class="form-helper">Helper: Enter descriptive title for internal tracking.</span>
+                </div>
+
+                <!-- Text Input Focus State simulation -->
+                <div class="form-group">
+                  <label class="form-label">Text Input (Focus State)</label>
+                  <input type="text" class="form-input" value="Active Typing State..." style="border-color:var(--border-focus); box-shadow:0 0 0 3px rgba(59,130,246,0.15), var(--glass-highlight);">
+                </div>
+
+                <!-- Text Input Error State -->
+                <div class="form-group">
+                  <label class="form-label">Text Input (Error State)</label>
+                  <input type="text" class="form-input error" value="Invalid character string @@@">
+                  <span class="form-error-msg">⚠ Error: Post title cannot contain special symbol sequences.</span>
+                </div>
+
+                <!-- Text Input Disabled State -->
+                <div class="form-group">
+                  <label class="form-label">Text Input (Disabled State)</label>
+                  <input type="text" class="form-input" value="System Locked Read-Only Value" disabled>
+                </div>
+
+                <!-- Textarea Component -->
+                <div class="form-group">
+                  <label class="form-label">Textarea Component</label>
+                  <textarea class="form-input" style="height:80px; padding-top:10px; resize:none;" placeholder="Enter multiline notes..."></textarea>
+                </div>
+
+                <!-- Dropdown Component -->
+                <div class="form-group">
+                  <label class="form-label">Dropdown Component</label>
+                  <select class="form-input">
+                    <option>Immediate Distribution</option>
+                    <option>Schedule for Optimal Time</option>
+                    <option>Save to Review Queue</option>
+                  </select>
+                </div>
+
+                <!-- Checkbox & Radio Components -->
+                <div class="form-group">
+                  <label class="form-label">Checkbox & Radio Button Controls</label>
+                  <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px;">
+                    <label class="checkbox-label">
+                      <input type="checkbox" checked hidden>
+                      <div class="custom-checkbox">✓</div>
+                      <span>Auto-shorten links using pulse.to</span>
+                    </label>
+                    
+                    <label class="radio-label">
+                      <input type="radio" checked hidden>
+                      <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+                      <span>High definition video encoding (1080p 60fps)</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Toggle Switch Control -->
+                <div class="form-group">
+                  <label class="form-label">Toggle Switch Control</label>
+                  <div style="display:flex; align-items:center; gap:14px; margin-top:6px;">
+                    <label class="toggle-switch">
+                      <input type="checkbox" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <span style="font-size:14px; font-weight:500;">Enable AI sentiment & check pre-flight</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Empty States Showcase -->
+            <div class="glass-card">
+              <div class="card-title">4. Beautiful Empty States Showcase</div>
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:20px;">Illustration placeholder, headline, description, and action buttons for 3 required scenarios.</p>
+              
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;">
+                <!-- Empty State 1: No Drafts Yet -->
+                <div class="empty-state-card" style="margin:0; background:var(--bg-surface-inner); border-radius:var(--radius-lg); border:1px solid var(--border-inner);">
+                  <div class="empty-illustration">
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                  </div>
+                  <h3 class="empty-title">No Drafts Yet</h3>
+                  <p class="empty-desc">Your workspace drafts folder is completely clean. Start composing your next high-impact social media campaign now.</p>
+                  <button class="btn btn-primary" data-goto-view="create-post">Create New Post</button>
+                </div>
+
+                <!-- Empty State 2: No Published Posts -->
+                <div class="empty-state-card" style="margin:0; background:var(--bg-surface-inner); border-radius:var(--radius-lg); border:1px solid var(--border-inner);">
+                  <div class="empty-illustration" style="color:var(--success);">
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"></polyline><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path></svg>
+                  </div>
+                  <h3 class="empty-title">No Published Posts</h3>
+                  <p class="empty-desc">You have not distributed any broadcasts to your connected social channels yet. Once you publish, your verified history will appear right here.</p>
+                  <button class="btn btn-secondary" data-goto-view="create-post">Open Studio Composer</button>
+                </div>
+
+                <!-- Empty State 3: Nothing Found -->
+                <div class="empty-state-card" style="margin:0; background:var(--bg-surface-inner); border-radius:var(--radius-lg); border:1px solid var(--border-inner);">
+                  <div class="empty-illustration" style="color:var(--warning);">
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                  </div>
+                  <h3 class="empty-title">Nothing Found</h3>
+                  <p class="empty-desc">We searched across all your posts, drafts, and analytics tags but could not find a match for that specific search query.</p>
+                  <button class="btn btn-outline" onclick="document.getElementById('navSearchInput').focus()">Clear Search Filter</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Loading UI Skeleton Screens Showcase -->
+            <div class="glass-card">
+              <div class="card-title">5. Skeleton Loading Screens & Spinners Showcase</div>
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:20px;">Demonstrating shimmer skeleton placeholders for Cards, Dashboard, Post Composer, and Analytics widgets.</p>
+              
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;">
+                <!-- Skeleton Card -->
+                <div class="skeleton-card">
+                  <div style="display:flex; justify-content:space-between;">
+                    <div class="skeleton" style="width:80px; height:20px;"></div>
+                    <div class="skeleton" style="width:100px; height:20px;"></div>
+                  </div>
+                  <div class="skeleton" style="width:85%; height:24px; margin-top:8px;"></div>
+                  <div class="skeleton" style="width:100%; height:12px;"></div>
+                  <div class="skeleton" style="width:90%; height:12px;"></div>
+                  <div class="skeleton" style="width:100%; height:140px; margin-top:10px; border-radius:12px;"></div>
+                  <div style="display:flex; justify-content:space-between; margin-top:12px;">
+                    <div class="skeleton" style="width:120px; height:32px; border-radius:99px;"></div>
+                    <div class="skeleton" style="width:90px; height:32px; border-radius:99px;"></div>
+                  </div>
+                </div>
+
+                <!-- Skeleton Analytics Widget -->
+                <div class="skeleton-card">
+                  <div class="skeleton" style="width:160px; height:22px;"></div>
+                  <div style="display:flex; align-items:flex-end; justify-content:space-around; height:180px; margin-top:20px;">
+                    <div class="skeleton" style="width:18%; height:45%;"></div>
+                    <div class="skeleton" style="width:18%; height:75%;"></div>
+                    <div class="skeleton" style="width:18%; height:60%;"></div>
+                    <div class="skeleton" style="width:18%; height:95%;"></div>
+                  </div>
+                </div>
+
+                <!-- Loading Spinner Box -->
+                <div class="skeleton-card" style="align-items:center; justify-content:center; text-align:center;">
+                  <div class="loading-spinner"></div>
+                  <span style="font-size:14px; font-weight:700;">Loading Dashboard Data...</span>
+                  <span style="font-size:12px; color:var(--text-tertiary);">Synchronizing multi-channel social APIs</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. Toast Notifications Showcase -->
+            <div class="glass-card">
+              <div class="card-title">6. Toast Notifications Showcase (Click to Trigger)</div>
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">Interactive trigger buttons demonstrating Success, Error, Warning, and Information toasts in the top-right corner.</p>
+              
+              <div style="display:flex; flex-wrap:wrap; gap:12px;">
+                <button class="btn btn-primary" style="background:var(--success); border-color:var(--success);" data-trigger-toast="success">
+                  <span>✓ Trigger Success Toast</span>
+                </button>
+                
+                <button class="btn btn-danger" data-trigger-toast="error">
+                  <span>✕ Trigger Error Toast</span>
+                </button>
+                
+                <button class="btn btn-secondary" style="border-color:var(--warning); color:var(--warning);" data-trigger-toast="warning">
+                  <span>⚠ Trigger Warning Toast</span>
+                </button>
+                
+                <button class="btn btn-secondary" style="border-color:var(--info); color:var(--info);" data-trigger-toast="info">
+                  <span>ℹ Trigger Information Toast</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 7. Reusable Modal Windows Showcase -->
+            <div class="glass-card">
+              <div class="card-title">7. Reusable Modal Dialog Windows Showcase (Click to Open)</div>
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:16px;">Demonstrating Delete Confirmation, Discard Changes, and Publish Confirmation modal windows.</p>
+              
+              <div style="display:flex; flex-wrap:wrap; gap:14px;">
+                <button class="btn btn-danger" data-trigger-modal="modalDeleteConfirm">Open Delete Confirmation Modal</button>
+                <button class="btn btn-secondary" data-trigger-modal="modalDiscardConfirm">Open Discard Changes Modal</button>
+                <button class="btn btn-primary" data-trigger-modal="modalPublishConfirm">Open Publish Confirmation Modal</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+
+  <!-- =========================================================
+       REUSABLE MODAL DIALOG WINDOWS
+       ========================================================= -->
+  
+  <!-- 1. Delete Confirmation Modal -->
+  <div id="modalDeleteConfirm" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-icon-header danger">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+      </div>
+      <h3 class="modal-title">Delete Draft Confirmation</h3>
+      <p class="modal-description">Are you sure you want to permanently delete this post draft? All attached media thumbnails and platform metadata will be erased from local storage. This action cannot be undone.</p>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+        <button id="confirmDeleteBtn" class="btn btn-danger">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Discard Changes Modal -->
+  <div id="modalDiscardConfirm" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-icon-header warning">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+      </div>
+      <h3 class="modal-title">Discard Composer Changes?</h3>
+      <p class="modal-description">You have unsaved text copy and media attachments currently loaded in the studio composer. Discarding will reset the form back to empty state.</p>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal>Keep Editing</button>
+        <button id="confirmDiscardBtn" class="btn btn-danger">Discard All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Publish Confirmation Modal -->
+  <div id="modalPublishConfirm" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-icon-header primary">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h3 class="modal-title">Confirm Broadcast Publishing</h3>
+      <p class="modal-description">You are about to distribute this post across 3 selected networks (Twitter/X, LinkedIn, and Instagram). High-resolution media files will begin broadcasting immediately.</p>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal>Cancel</button>
+        <button id="confirmPublishBtn" class="btn btn-primary">Publish Now ↗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Search Overlay Modal (Command Palette) -->
+  <div id="modalSearchOverlay" class="modal-overlay">
+    <div class="modal-card search-modal-card">
+      <div class="search-modal-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-tertiary);"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input id="searchModalInput" type="text" class="search-modal-input" placeholder="Type to search across 1,428 posts, drafts, or navigate pages...">
+        <button class="btn btn-ghost" style="padding:4px 8px; font-size:12px;" data-close-modal>ESC</button>
+      </div>
+      <div class="search-results-list">
+        <div class="search-result-item" data-goto-view="drafts" data-close-modal>
+          <div>
+            <div style="font-size:14px; font-weight:700;">Q3 Major Product Launch Announcement</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Draft · Last modified 2 hours ago</div>
+          </div>
+          <span class="status-badge badge-draft">Draft</span>
+        </div>
+
+        <div class="search-result-item" data-goto-view="published" data-close-modal>
+          <div>
+            <div style="font-size:14px; font-weight:700;">Minimalism in Modern UI Design — 5 Core Principles</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Published · Jul 14 · 4.1k reach</div>
+          </div>
+          <span class="status-badge badge-published">Published</span>
+        </div>
+
+        <div class="search-result-item" data-goto-view="analytics" data-close-modal>
+          <div>
+            <div style="font-size:14px; font-weight:700;">Weekly Audience Growth Spline Analysis</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Analytics & Insights · 30-Day Curve</div>
+          </div>
+          <span class="status-badge badge-published" style="background:var(--info-bg); color:var(--info); border-color:var(--info-border);">Chart</span>
+        </div>
+
+        <div class="search-result-item" data-goto-view="settings" data-close-modal>
+          <div>
+            <div style="font-size:14px; font-weight:700;">Appearance & Theme Settings</div>
+            <div style="font-size:12px; color:var(--text-secondary);">Settings · Switch between OLED Charcoal and Silver Paper</div>
+          </div>
+          <span class="status-badge badge-draft" style="background:var(--bg-surface-inner); color:var(--text-secondary); border-color:var(--border-inner);">Config</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
